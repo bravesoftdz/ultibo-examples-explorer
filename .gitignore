@@ -1,0 +1,9 @@
+*.elf
+*.o
+*.ppu
+*.s
+*.s.in
+*.bin
+link.res
+ppas.bat
+source.generated.inc
