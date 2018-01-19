@@ -1,6 +1,6 @@
 Installation
 ============
-Install Ultibo and Git for your platform. Installing Git for Windows installs a bash shell and needed tools.
+Install Ultibo for your platform. On Windows, install Git for Windows to obtain the required bash shell and related tools.
 
 Operation
 =========

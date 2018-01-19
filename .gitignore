@@ -6,4 +6,5 @@
 *.bin
 link.res
 ppas.bat
+ppas.sh
 source.generated.inc

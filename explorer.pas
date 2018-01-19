@@ -16,15 +16,15 @@ begin
 end;
 
 const
- MaxLines=10*1000;
+ MaxSourceLines=10*1000;
 
 var
- Lines:Array[0..MaxLines - 1] of String;
+ SourceLines:Array[0..MaxSourceLines - 1] of String;
  LineCount:LongWord;
 
 procedure AddLine(Line:String);
 begin
- Lines[LineCount]:=Line;
+ SourceLines[LineCount]:=Line;
  Inc(LineCount);
 end;
 
@@ -43,17 +43,17 @@ var
 procedure CoverageSvcHandler; assembler; nostackframe;
 asm
  stmfd r13!,{r0-r4,r14}
- ldr    r3,=CoverageMeter                    // r3 CoverageMeter
- ldr    r2,[r3,#TCoverageMeter.TraceCounter]
- add    r2,#1                                // r2 incremented TraceCounter
- ldr    r1,=TraceLength-1
- and    r1,r2                                // r1 wrapped incremented TraceCounter
- add    r4,r3,#TCoverageMeter.TraceBuffer
- add    r4,r4,r1,lsl #2                      // r4 points to entry
- ldr    r0,[r14,#-4]
- bic    r0,#0xFF000000                       // r0 has svc code number
- str    r0,[r4]                              // store code number
- str    r2,[r3,#TCoverageMeter.TraceCounter] // store updated TraceCounter
+ ldr   r3,=CoverageMeter                    // r3 CoverageMeter
+ ldr   r2,[r3,#TCoverageMeter.TraceCounter]
+ add   r2,#1                                // r2 incremented TraceCounter
+ ldr   r1,=TraceLength-1
+ and   r1,r2                                // r1 wrapped incremented TraceCounter
+ add   r4,r3,#TCoverageMeter.TraceBuffer
+ add   r4,r4,r1,lsl #2                      // r4 points to entry
+ ldr   r0,[r14,#-4]
+ bic   r0,#0xFF000000                       // r0 has svc code number
+ str   r0,[r4]                              // store code number
+ str   r2,[r3,#TCoverageMeter.TraceCounter] // store incremented TraceCounter
  ldmfd r13!,{r0-r4,r15}^
 end;
 
@@ -67,14 +67,13 @@ var
 begin
  Result:=0;
  ConsumedEvents:=0;
- LoggingOutput('tracing...');
  while True do
   begin
    if CoverageMeter.TraceCounter <> ConsumedEvents then
     begin
      Event:=CoverageMeter.TraceBuffer[ConsumedEvents and (TraceLength - 1)];
      Inc(ConsumedEvents);
-     LoggingOutput(Format('Trace: %3d %s',[ConsumedEvents,Lines[Event]]));
+     LoggingOutput(Format('Trace: %3d %s',[ConsumedEvents,SourceLines[Event]]));
     end;
    Sleep(10);
   end;
@@ -83,9 +82,8 @@ end;
 initialization
  LineCount:=0;
  {$i source.generated.inc}
- while LineCount < MaxLines do
+ while LineCount < MaxSourceLines do
   AddLine(Format('entry %5d',[LineCount]));
- KEYBOARD_LOG_ENABLED:=True;
  StartLogging;
  CoverageMeter.TraceCounter:=0;
  VectorTableSetEntry(VECTOR_TABLE_ENTRY_ARM_SWI,PtrUInt(@CoverageSvcHandler));
