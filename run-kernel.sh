@@ -4,7 +4,7 @@ LPR=KeyboardInput
 if [[ -e /c/ultibo ]]
 then
     WINDOWS=1
-    ULTIBOBIN=/c/ultibo/core/fpc/3.1.1/bin/i386-win
+    ULTIBOBIN=/c/ultibo/core/fpc/3.1.1/bin/i386-win32
     export PATH=/c/ultibo/core/qemu:$ULTIBOBIN:$PATH
 elif [[ -e $HOME/ultibo ]]
 then

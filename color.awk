@@ -6,6 +6,7 @@
 /^ALSA[: ]/    {other = 0}
 /^alsa[: ]/    {other = 0}
 /^audio:/      {other = 0}
+/^dsound:/     {other = 0}
 /^pulseaudio:/ {other = 0}
 other          {print}
                {fflush()}
