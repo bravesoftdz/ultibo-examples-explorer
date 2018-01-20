@@ -1,4 +1,5 @@
 *.elf
+*.log
 *.o
 *.ppu
 *.s

@@ -4,7 +4,7 @@ unit Explorer;
 interface
 
 implementation
- uses GlobalConfig,GlobalTypes,Keyboard,Logging,Platform,Serial,Threads,SysUtils;
+ uses GlobalConfig,GlobalTypes,Devices,Keyboard,Logging,Platform,Serial,Threads,SysUtils;
 
 procedure StartLogging;
 begin
@@ -80,6 +80,7 @@ begin
 end;
 
 initialization
+ DEVICE_LOG_ENABLED:=False;
  LineCount:=0;
  {$i source.generated.inc}
  while LineCount < MaxSourceLines do

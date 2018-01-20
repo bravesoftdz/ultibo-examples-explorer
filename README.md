@@ -1,6 +1,10 @@
 Installation
 ============
-Install Ultibo for your platform. On Windows, install Git for Windows to obtain the required bash shell and related tools.
+Install Ultibo for your platform.
+
+On Windows, install Git for Windows to obtain the required bash shell and related tools.
+
+On Linux, install qemu-system-arm (on Windows, this is already installed with Ultibo.) If mawk in installed, you will need to install gawk instead.
 
 Operation
 =========
