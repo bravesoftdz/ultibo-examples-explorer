@@ -12,7 +12,7 @@ Operation
 In a bash console:
 
     cd ultibo-examples-explorer
-    ./run-kernel.sh | awk -f color.awk
+    ./run-kernel.sh |& awk -f color.awk
 
 which will build Ultibo Example 04 - KeyboardInput and run it in QEMU. The example has been modified only to include the explorer unit.
 
