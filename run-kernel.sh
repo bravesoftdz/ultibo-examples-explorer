@@ -33,6 +33,7 @@ function compile {
 }
 
 echo Script: compile once to determine svc numbers and generate source.generated.inc
+echo > source.generated.inc
 compile
 
 echo Script: compile a second time to use the accurate source.generated.inc file
